@@ -29,7 +29,10 @@ struct ContentView: View {
                 showsUserLocation: true,
                 userTrackingMode: .constant(.follow),
                 annotationItems: locationManager.geofences) {item in
-                MapMarker(coordinate: item.coordinate, tint: .red)}
+                MapAnnotation(coordinate: item.coordinate) {
+                    RoundedRectangle (cornerRadius: 5.0) .stroke(Color.purple, lineWidth: 4.0)
+                    .frame (width: 30, height: 30)
+                }}
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 if let locationJJM = locationManager.locationForMap {
@@ -40,7 +43,6 @@ struct ContentView: View {
                         .background(.gray)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
-                
                 Spacer()
                 Button("Remind Me To Go", action:remindMe)
             }
