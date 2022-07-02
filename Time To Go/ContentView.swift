@@ -14,58 +14,60 @@ import CoreLocationUI
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.scenePhase) var scenePhase
-
+    
     @StateObject var locationManager = LocationManager()
-
-    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
-
+    
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
-
+    
     var body: some View {
         ZStack(alignment: .bottom) {
-        Map(coordinateRegion: $region,
+            Map(coordinateRegion: $locationManager.regionForMap,
                 interactionModes: .all,
                 showsUserLocation: true,
-                userTrackingMode: .constant(.follow))
-            //            .frame(width: 400, height: 300)
-            .edgesIgnoringSafeArea(.all)
+                userTrackingMode: .constant(.follow),
+                annotationItems: locationManager.geofences) {item in
+                MapMarker(coordinate: item.coordinate, tint: .red)}
+                .edgesIgnoringSafeArea(.all)
             VStack {
                 if let locationJJM = locationManager.locationForMap {
-                                    Text("**Current location:** \(locationJJM.latitude), \(locationJJM.longitude)")
-                                        .font(.callout)
-                                        .foregroundColor(.white)
-                                        .padding()
-                                        .background(.gray)
-                                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                    }
-
-                    Spacer()
-                    LocationButton {
-                                    locationManager.requestLocation()
-                                }
-                                .frame(width: 180, height: 40)
-                                .cornerRadius(30)
-                                .symbolVariant(.fill)
-                                .foregroundColor(.white)
-                            }
-                            .padding()
+                    Text("**Current location:** \(locationJJM.latitude), \(locationJJM.longitude)")
+                        .font(.callout)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(.gray)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
+                
+                Spacer()
+                Button("Remind Me To Go", action:remindMe)
+            }
+            .padding()
+            .buttonStyle(.bordered)
         }
         .onChange(of: scenePhase) { phase in
             if phase == .active {
-                locationManager.requestAlwaysAuthorization()
+                if (locationManager.authorizationStatus() != .authorizedAlways ) {
+                    locationManager.requestAlwaysAuthorization()
+                }
             }
         }
-
     }
-
+    
+    
+    
+    private func remindMe() {
+        locationManager.setGeofenceFor(location: locationManager.locationForMap!)
+        print("Set Geofence")
+    }
+    
     private func addItem() {
         withAnimation {
             let newItem = Item(context: viewContext)
             newItem.timestamp = Date()
-
+            
             do {
                 try viewContext.save()
             } catch {
@@ -76,11 +78,11 @@ struct ContentView: View {
             }
         }
     }
-
+    
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { items[$0] }.forEach(viewContext.delete)
-
+            
             do {
                 try viewContext.save()
             } catch {
