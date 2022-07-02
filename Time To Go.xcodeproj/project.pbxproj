@@ -16,6 +16,7 @@
 		03157E1D28702DAE00971850 /* Time_To_GoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03157E1C28702DAE00971850 /* Time_To_GoTests.swift */; };
 		03157E2728702DAE00971850 /* Time_To_GoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03157E2628702DAE00971850 /* Time_To_GoUITests.swift */; };
 		03157E2928702DAE00971850 /* Time_To_GoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03157E2828702DAE00971850 /* Time_To_GoUITestsLaunchTests.swift */; };
+		03157E36287035DC00971850 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03157E35287035DC00971850 /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		03157E2228702DAE00971850 /* Time To GoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Time To GoUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03157E2628702DAE00971850 /* Time_To_GoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time_To_GoUITests.swift; sourceTree = "<group>"; };
 		03157E2828702DAE00971850 /* Time_To_GoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time_To_GoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		03157E35287035DC00971850 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 			children = (
 				03157E0528702DAC00971850 /* Time_To_GoApp.swift */,
 				03157E0728702DAC00971850 /* ContentView.swift */,
+				03157E35287035DC00971850 /* LocationManager.swift */,
 				03157E0928702DAE00971850 /* Assets.xcassets */,
 				03157E0E28702DAE00971850 /* Persistence.swift */,
 				03157E1328702DAE00971850 /* Info.plist */,
@@ -267,6 +270,7 @@
 			files = (
 				03157E0F28702DAE00971850 /* Persistence.swift in Sources */,
 				03157E1228702DAE00971850 /* Time_To_Go.xcdatamodeld in Sources */,
+				03157E36287035DC00971850 /* LocationManager.swift in Sources */,
 				03157E0828702DAC00971850 /* ContentView.swift in Sources */,
 				03157E0628702DAC00971850 /* Time_To_GoApp.swift in Sources */,
 			);
