@@ -17,6 +17,7 @@
 		03157E2728702DAE00971850 /* Time_To_GoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03157E2628702DAE00971850 /* Time_To_GoUITests.swift */; };
 		03157E2928702DAE00971850 /* Time_To_GoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03157E2828702DAE00971850 /* Time_To_GoUITestsLaunchTests.swift */; };
 		03157E36287035DC00971850 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03157E35287035DC00971850 /* LocationManager.swift */; };
+		03BE485E287124C000630F37 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BE485D287124C000630F37 /* LocalNotificationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		03157E2828702DAE00971850 /* Time_To_GoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time_To_GoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		03157E35287035DC00971850 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		03157E372870707500971850 /* Time-To-Go-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Time-To-Go-Info.plist"; sourceTree = SOURCE_ROOT; };
+		03BE485D287124C000630F37 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				03157E372870707500971850 /* Time-To-Go-Info.plist */,
 				03157E0528702DAC00971850 /* Time_To_GoApp.swift */,
 				03157E0728702DAC00971850 /* ContentView.swift */,
+				03BE485D287124C000630F37 /* LocalNotificationManager.swift */,
 				03157E35287035DC00971850 /* LocationManager.swift */,
 				03157E0928702DAE00971850 /* Assets.xcassets */,
 				03157E0E28702DAE00971850 /* Persistence.swift */,
@@ -270,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03BE485E287124C000630F37 /* LocalNotificationManager.swift in Sources */,
 				03157E0F28702DAE00971850 /* Persistence.swift in Sources */,
 				03157E1228702DAE00971850 /* Time_To_Go.xcdatamodeld in Sources */,
 				03157E36287035DC00971850 /* LocationManager.swift in Sources */,

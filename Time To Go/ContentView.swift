@@ -21,13 +21,14 @@ struct ContentView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
+    let feedback = UIImpactFeedbackGenerator(style: .soft)
     
     var body: some View {
         ZStack(alignment: .bottom) {
             Map(coordinateRegion: $locationManager.regionForMap,
                 interactionModes: .all,
                 showsUserLocation: true,
-                userTrackingMode: .constant(.follow),
+                userTrackingMode: .constant(.none),
                 annotationItems: locationManager.geofences) {item in
                 MapAnnotation(coordinate: item.coordinate) {
                     Circle()
@@ -35,7 +36,7 @@ struct ContentView: View {
                         .background(Circle().foregroundColor(Color(red: 0.0, green: 0, blue: 1.0, opacity: 0.25)))
                         .frame(width: 60, height: 60)
                         .offset(x:0, y:0)
-                 }}
+                }}
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 if let locationJJM = locationManager.locationForMap {
@@ -47,7 +48,16 @@ struct ContentView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
                 Spacer()
-                Button("Remind Me To Go", action:remindMe)
+                HStack {
+                    Spacer()
+                    Spacer()
+                    Button("Remind Me To Go", action:{self.remindMe()})
+                    Spacer()
+                    Button(action:{self.centerOnMe()})
+                    {
+                        Image(systemName:"location.fill")
+                    }
+                }
             }
             .padding()
             .buttonStyle(.bordered)
