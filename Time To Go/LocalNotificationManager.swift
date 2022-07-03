@@ -42,20 +42,39 @@ class LocalNotificationManager: ObservableObject {
         let request = UNNotificationRequest(identifier: "Get Out Notifier", content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+//
+//        let leaveContent = UNMutableNotificationContent()
+//        leaveContent.title = "Well Done"
+//        leaveContent.subtitle = "You're Getting On With It"
+//        content.body = "You've left the location and we won't nag you anymore"
+//        content.sound = UNNotificationSound.default
+//        content.interruptionLevel = .active
+//
+//        let leaveTrigger = UNLocationNotificationTrigger(region: <#T##CLRegion#>, repeats: <#T##Bool#>)
     }
+    
     
     func removePendingNotifications() {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
     
-    func timeUntilReminder() -> TimeInterval? {
-        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: {requests -> () in
-            print("\(requests.count) requests -------")
-            for request in requests{
-                print(request.trigger)
-            }
-        })
-        return nil
-    }
     
+//    func timeUntilReminder() -> TimeInterval? {
+//        let nextTriggerDate: Date
+//        UNUserNotificationCenter.current().getPendingNotificationRequests() {(requests) in
+//            for request in requests {
+//                if let trigger = (request.trigger)? as UNTimeIntervalNotificationTrigger {
+//                    if let nextTriggerDate = trigger.nextTriggerDate() {
+//                        return trigger.nextTriggerDate().timeIntervalSinceNow
+//                    } else {
+//                        if trigger.nextTriggerDate() < nextTriggerDate {
+//                            nextTriggerDate = trigger.nextTriggerDate()
+//                            return nextTriggerDate.timeIntervalSinceNow
+//                        }
+//                    }
+//                }
+//            }
+//            return nil
+//        }
+//    }
 }
