@@ -54,6 +54,12 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         self.currentUserLocation = location
     }
     
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        /* Workaround because I can't talk to my locationManager from here*/
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        self.geofences.removeAll()
+    }
+    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         print("Authorization Changed")
     }
@@ -70,6 +76,14 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         let geofenceLocation: GeofenceLocation = GeofenceLocation(coordinate: location, name: "Home", radius: 150.0)
         self.geofences.removeAll()
         self.geofences.append(geofenceLocation)
+        
+        if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
+            let region = CLCircularRegion(center: geofenceLocation.coordinate, radius: geofenceLocation.radius, identifier: geofenceLocation.id.uuidString)
+            region.notifyOnExit = true
+            region.notifyOnEntry = false
+            
+            self.locationManager.startMonitoring(for: region)
+        }
     }
     
     func centreOnCurrentUserLocation() {
