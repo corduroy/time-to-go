@@ -58,6 +58,10 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         print("Authorization Changed")
     }
     
+    func removeGeofences() {
+        self.geofences.removeAll()
+    }
+    
     func setGeofenceForCurrentUserLocation() {
         self.setGeofenceFor(location: self.currentUserLocation.coordinate)
     }

@@ -22,7 +22,7 @@ struct ContentView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
-    let feedback = UIImpactFeedbackGenerator(style: .soft)
+    let hapticFeedback = UIImpactFeedbackGenerator(style: .medium)
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -50,9 +50,18 @@ struct ContentView: View {
                 }
                 Spacer()
                 HStack {
+                    Button(action:{
+                        self.stopReminders()
+                        self.hapticFeedback.impactOccurred()
+                    })
+                    {
+                        Image(systemName: "stop.circle")
+                    }
                     Spacer()
-                    Spacer()
-                    Button("Remind Me To Go", action:{self.remindMe()})
+                    Button("Remind Me To Go", action:{
+                        self.remindMe()
+                        self.hapticFeedback.impactOccurred()
+                    })
                     Spacer()
                     Button(action:{self.centerOnMe()})
                     {
@@ -82,6 +91,10 @@ struct ContentView: View {
     private func centerOnMe(){
         print("Centring")
         self.locationManager.centreOnCurrentUserLocation()
+    }
+    private func stopReminders() {
+        self.notificationManager.removePendingNotifications()
+        self.locationManager.removeGeofences()
     }
     
     private func addItem() {

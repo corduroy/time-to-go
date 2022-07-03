@@ -36,11 +36,16 @@ class LocalNotificationManager: ObservableObject {
         }
         content.body = body
         content.sound = UNNotificationSound.default
+        content.interruptionLevel = .timeSensitive
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: launchAfter, repeats: true)
         let request = UNNotificationRequest(identifier: "Get Out Notifier", content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
+    
+    func removePendingNotifications() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
     
     func timeUntilReminder() -> TimeInterval? {
