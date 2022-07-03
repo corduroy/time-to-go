@@ -30,7 +30,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     )
     @Published var homeLocation = CLLocationCoordinate2D(latitude: -33.71609, longitude: 150.32800)
     @Published var geofences = [GeofenceLocation]()
-//    @Published var 
+    private var currentUserLocation = CLLocation()
     override init() {
         super.init()
         locationManager.delegate = self
@@ -51,25 +51,31 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
-        
-        DispatchQueue.main.async {
-            self.locationForMap = location.coordinate
-            self.regionForMap = MKCoordinateRegion(
-                center: location.coordinate,
-                span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
-            )
-        }
+        self.currentUserLocation = location
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         print("Authorization Changed")
     }
     
-    func setGeofenceFor(location: CLLocationCoordinate2D) {
+    func setGeofenceForCurrentUserLocation() {
+        self.setGeofenceFor(location: self.currentUserLocation.coordinate)
+    }
+    
+    private func setGeofenceFor(location: CLLocationCoordinate2D) {
         let geofenceLocation: GeofenceLocation = GeofenceLocation(coordinate: location, name: "Home", radius: 150.0)
         self.geofences.removeAll()
         self.geofences.append(geofenceLocation)
-
+    }
+    
+    func centreOnCurrentUserLocation() {
+        DispatchQueue.main.async {
+            self.locationForMap = self.currentUserLocation.coordinate
+            self.regionForMap = MKCoordinateRegion(
+                center: self.currentUserLocation.coordinate,
+                span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+            )
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

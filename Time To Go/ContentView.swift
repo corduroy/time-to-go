@@ -16,6 +16,7 @@ struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
     
     @StateObject var locationManager = LocationManager()
+    @ObservedObject var notificationManager = LocalNotificationManager()
     
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
@@ -74,8 +75,13 @@ struct ContentView: View {
     
     
     private func remindMe() {
-        locationManager.setGeofenceFor(location: locationManager.locationForMap!)
+        self.locationManager.setGeofenceForCurrentUserLocation()
+        self.notificationManager.triggerReminder()
         print("Set Geofence")
+    }
+    private func centerOnMe(){
+        print("Centring")
+        self.locationManager.centreOnCurrentUserLocation()
     }
     
     private func addItem() {
