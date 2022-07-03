@@ -32,8 +32,9 @@ struct ContentView: View {
                 MapAnnotation(coordinate: item.coordinate) {
                     Circle()
                         .strokeBorder(Color.blue, lineWidth: 4.0)
-                        .background(Circle().foregroundColor(Color(red: 0.0, green: 0, blue: 1.0, opacity: 0.3)))
-                        .frame(width: 30, height: 30)
+                        .background(Circle().foregroundColor(Color(red: 0.0, green: 0, blue: 1.0, opacity: 0.25)))
+                        .frame(width: 60, height: 60)
+                        .offset(x:0, y:0)
                  }}
                 .edgesIgnoringSafeArea(.all)
             VStack {
